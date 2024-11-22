@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>lesson4</class>
+ <widget class="QMainWindow" name="lesson4">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>620</width>
+    <height>530</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>600</width>
+      <height>470</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Урок 4: Агрегатные функции — COUNT, AVG, SUM, MAX, MIN
+Цель урока: Научиться использовать агрегатные функции для получения статистических данных.
+
+Агрегатные функции применяются к набору строк и возвращают одно значение для этого набора. 
+
+К основным агрегатным функциям относятся:
+COUNT — подсчет строк.
+AVG — вычисление среднего значения.
+SUM — вычисление суммы.
+MAX — нахождение максимума.
+MIN — нахождение минимума.
+
+Примеры использования агрегатных функций
+
+Пример 1: Подсчет количества строк
+Подсчитываем общее количество записей в таблице employees:
+SELECT COUNT(*) FROM employees;
+
+Пример 2: Среднее значение
+Вычисляем средний возраст сотрудников:
+SELECT AVG(age) FROM employees;
+
+Пример 3: Сумма значений
+Вычисляем общую сумму зарплат сотрудников (предполагается наличие колонки salary):
+SELECT SUM(salary) FROM employees;
+
+Пример 4: Максимальное и минимальное значение
+Находим максимальный и минимальный возраст сотрудников:
+SELECT MAX(age), MIN(age) FROM employees;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>620</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

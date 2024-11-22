@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>lesson1</class>
+ <widget class="QMainWindow" name="lesson1">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>750</width>
+    <height>470</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>750</width>
+      <height>500</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Урок 1: Основы SQL — Выборка данных
+Цель урока: Научиться извлекать данные из таблиц с помощью запроса SELECT.
+
+Что такое запрос SELECT?
+Запрос SELECT используется для извлечения данных из одной или нескольких колонок таблицы.
+
+Простой запрос для выборки всех данных:
+SELECT column1, column2, ... FROM table_name;
+Для выбора всех данных из таблицы можно использовать *, что означает «все колонки».
+
+Примеры запросов
+Выбор всех колонок:
+SELECT * FROM employees;
+Этот запрос выберет все строки и все колонки из таблицы employees.
+
+Выбор определённых колонок: Если нужно выбрать только некоторые данные, указывайте имена колонок через запятую:
+SELECT name, age FROM employees;
+Этот запрос вернёт только имена и возраст сотрудников.
+
+Выбор данных с псевдонимами (алиасами): Для удобства можно использовать псевдонимы для отображения колонок:
+SELECT name AS &quot;Employee Name&quot;, age AS &quot;Employee Age&quot; FROM employees;
+Этот запрос отобразит столбцы с именами &quot;Employee Name&quot; и &quot;Employee Age&quot; вместо стандартных названий колонок.
+
+Важные моменты:
+* используется для выбора всех колонок таблицы.
+Псевдонимы (aliase) упрощают чтение результатов запроса.</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

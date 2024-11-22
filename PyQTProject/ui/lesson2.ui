@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>lesson2</class>
+ <widget class="QMainWindow" name="lesson2">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1030</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>1030</width>
+      <height>500</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Урок 2: Фильтрация данных с помощью оператора WHERE
+Цель урока: Научиться фильтровать строки с помощью оператора WHERE.
+
+Основной синтаксис запроса:
+SELECT column1, column2 FROM table_name WHERE condition;
+Оператор WHERE позволяет фильтровать данные, чтобы выбрать только те строки, которые соответствуют указанному условию.
+
+Примеры использования оператора WHERE
+Пример 1: Простая фильтрация
+Выбор сотрудников с должностью &quot;Менеджер&quot;:
+SELECT name, position FROM employees WHERE position = 'Менеджер';
+
+Пример 2: Фильтрация с несколькими условиями (AND и OR)
+Можно использовать операторы AND и OR, чтобы указать несколько условий.
+
+Пример с AND: выберем сотрудников старше 30 лет с должностью &quot;Менеджер&quot;:
+SELECT name, age, position FROM employees WHERE age &gt; 30 AND position = 'Менеджер';
+
+Пример с OR: выберем сотрудников с должностями &quot;Менеджер&quot; или &quot;Директор&quot;:
+SELECT name, position FROM employees WHERE position = 'Менеджер' OR position = 'Директор';
+
+Пример 3: Использование оператора IN
+Если нужно проверить несколько возможных значений, используйте IN. Например, выбираем сотрудников с должностями &quot;Менеджер&quot; или &quot;Директор&quot;:
+SELECT name, position FROM employees WHERE position IN ('Менеджер', 'Директор');
+
+Пример 4: Использование BETWEEN для диапазонов
+Когда нужно выбрать значения, попадающие в определённый диапазон, используйте BETWEEN. Например, выбираем сотрудников в возрасте от 25 до 40 лет:
+SELECT name, age FROM employees WHERE age BETWEEN 25 AND 40;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1030</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

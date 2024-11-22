@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>570</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>790</width>
+      <height>550</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Урок 5: Соединение таблиц с помощью оператора JOIN
+Цель урока: Научиться объединять данные из нескольких таблиц с помощью операторов соединения JOIN.
+
+Оператор JOIN используется для объединения строк из двух и более таблиц на основе логического условия.
+
+Примеры использования оператора JOIN
+Пример 1: Простое соединение JOIN
+Для объединения данных из двух таблиц employees и departments,
+где каждый сотрудник имеет ссылку на отдел через поле department_id:
+SELECT employees.name, departments.name
+FROM employees
+JOIN departments ON employees.department_id = departments.id;
+Этот запрос выберет имена сотрудников и названия их отделов.
+
+Пример 2: Соединение с фильтрацией
+Можно добавить условие фильтрации после соединения. Например,
+чтобы выбрать только тех сотрудников, которые работают в отделе &quot;HR&quot;:
+SELECT employees.name, departments.name
+FROM employees
+JOIN departments ON employees.department_id = departments.id
+WHERE departments.name = 'HR';
+
+Пример 3: Разные типы соединений
+LEFT JOIN: Все строки из левой таблицы и совпадающие строки из правой.
+RIGHT JOIN: Все строки из правой таблицы и совпадающие строки из левой.
+FULL JOIN: Все строки из обеих таблиц.
+
+Пример с использованием LEFT JOIN:
+SELECT employees.name, departments.name
+FROM employees
+LEFT JOIN departments ON employees.department_id = departments.id;
+Этот запрос вернет все имена сотрудников и название их отдела, если они принадлежат какому-либо отделу.
+Если сотрудник не относится ни к одному отделу, то для него будет выведено значение NULL в колонке с названием отдела.
+
+</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>lesson3</class>
+ <widget class="QMainWindow" name="lesson3">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>700</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>670</width>
+      <height>350</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Урок 3: Сортировка данных с помощью оператора ORDER BY
+Цель урока: Научиться сортировать данные по возрастанию или убыванию с помощью оператора ORDER BY.
+
+Основной синтаксис запроса:
+SELECT column1, column2 FROM table_name ORDER BY column1 ASC|DESC;
+Оператор ORDER BY позволяет отсортировать данные по одному или нескольким столбцам. 
+По умолчанию сортировка идет по возрастанию (ASC), но можно указать сортировку по убыванию (DESC).
+
+Примеры использования оператора ORDER BY
+
+Пример 1: Сортировка по возрастанию
+Сортируем сотрудников по возрасту от младшего к старшему:
+SELECT name, age FROM employees ORDER BY age ASC;
+
+Пример 2: Сортировка по убыванию
+Сортируем сотрудников по возрасту от старшего к младшему:
+SELECT name, age FROM employees ORDER BY age DESC;
+
+Пример 3: Сортировка по нескольким столбцам
+Сортировка сначала по возрасту (по возрастанию), затем по имени (по убыванию):
+SELECT name, age FROM employees ORDER BY age ASC, name DESC;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>700</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
