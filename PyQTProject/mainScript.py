@@ -1,6 +1,38 @@
-from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QMainWindow, QPushButton
+from PyQt6 import uic, QtWidgets
+from PyQt6.QtWidgets import QApplication, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QMainWindow, \
+    QPushButton, QDialog
+from PyQt6.uic import loadUi
 from lessons import Ui_lesson1, Ui_lesson2, Ui_lesson3, Ui_lesson4, Ui_lesson5
+
+
+class Lesson1(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('ui/lesson1.ui', self)
+
+
+class Lesson2(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('ui/lesson2.ui', self)
+
+
+class Lesson3(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('ui/lesson3.ui', self)
+
+
+class Lesson4(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('ui/lesson4.ui', self)
+
+
+class Lesson5(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('ui/lesson5.ui', self)
 
 
 class MainWindow(QMainWindow):
@@ -12,8 +44,8 @@ class MainWindow(QMainWindow):
         self.page1_btn = self.findChild(QPushButton, 'page1_btn')
         self.page2_btn = self.findChild(QPushButton, 'page2_btn')
 
-        self.page1_btn.clicked.connect(self.show_textbook)
-        self.page2_btn.clicked.connect(self.show_prefabs)
+        self.page1_btn.clicked.connect(self.changePage)
+        self.page2_btn.clicked.connect(self.changePage)
 
         self.btn_lesson1 = self.findChild(QPushButton, 'lesson1_btn')
         self.btn_lesson2 = self.findChild(QPushButton, 'lesson2_btn')
@@ -27,31 +59,30 @@ class MainWindow(QMainWindow):
         self.btn_lesson4.clicked.connect(self.open_lesson)
         self.btn_lesson5.clicked.connect(self.open_lesson)
 
-    def show_textbook(self):
-        self.stacked_wid.setCurrentIndex(0)
-
-    def show_prefabs(self):
-        self.stacked_wid.setCurrentIndex(1)
+    def changePage(self):
+        sender = self.sender()
+        if sender == self.page1_btn:
+            self.stacked_wid.setCurrentIndex(0)
+        else:
+            self.stacked_wid.setCurrentIndex(1)
 
     def open_lesson(self):
         sender = self.sender()
-        new_ui_widget = QWidget()
-        ui = Ui_lesson1()
-
-
+        self.new_window = Lesson1()
         if sender == self.btn_lesson1:
-            ui = Ui_lesson1()
+            self.new_window.show()
         elif sender == self.btn_lesson2:
-            ui = Ui_lesson2()
+            self.new_window = Lesson2()
+            self.new_window.show()
         elif sender == self.btn_lesson3:
-            ui = Ui_lesson3()
+            self.new_window = Lesson3()
+            self.new_window.show()
         elif sender == self.btn_lesson4:
-            ui = Ui_lesson4()
+            self.new_window = Lesson4()
+            self.new_window.show()
         elif sender == self.btn_lesson5:
-            ui = Ui_lesson5()
-
-        ui.setupUi(new_ui_widget)
-        new_ui_widget.show()
+            self.new_window = Lesson5()
+            self.new_window.show()
 
 
 if __name__ == "__main__":
