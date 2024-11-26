@@ -1,6 +1,6 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtWidgets import QApplication, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QMainWindow, \
-    QPushButton, QDialog
+    QPushButton, QDialog, QLineEdit
 from PyQt6.uic import loadUi
 from lessons import Ui_lesson1, Ui_lesson2, Ui_lesson3, Ui_lesson4, Ui_lesson5
 
@@ -43,9 +43,11 @@ class MainWindow(QMainWindow):
         self.stacked_wid = self.findChild(QStackedWidget, 'stackedWidget')
         self.page1_btn = self.findChild(QPushButton, 'page1_btn')
         self.page2_btn = self.findChild(QPushButton, 'page2_btn')
+        self.page3_btn = self.findChild(QPushButton, 'page3_btn')
 
         self.page1_btn.clicked.connect(self.changePage)
         self.page2_btn.clicked.connect(self.changePage)
+        self.page3_btn.clicked.connect(self.changePage)
 
         self.btn_lesson1 = self.findChild(QPushButton, 'lesson1_btn')
         self.btn_lesson2 = self.findChild(QPushButton, 'lesson2_btn')
@@ -59,12 +61,19 @@ class MainWindow(QMainWindow):
         self.btn_lesson4.clicked.connect(self.open_lesson)
         self.btn_lesson5.clicked.connect(self.open_lesson)
 
+        self.submit_btn = self.findChild(QPushButton, 'submitPrefab')
+        self.prefab = self.findChild(QLineEdit, 'prefab')
+
+        self.submit_btn.clicked.connect(self.savePrefab)
+
     def changePage(self):
         sender = self.sender()
         if sender == self.page1_btn:
             self.stacked_wid.setCurrentIndex(0)
-        else:
+        elif sender == self.page2_btn:
             self.stacked_wid.setCurrentIndex(1)
+        else:
+            self.stacked_wid.setCurrentIndex(2)
 
     def open_lesson(self):
         sender = self.sender()
@@ -83,6 +92,14 @@ class MainWindow(QMainWindow):
         elif sender == self.btn_lesson5:
             self.new_window = Lesson5()
             self.new_window.show()
+
+    def savePrefab(self):
+        prefab_text = self.prefab.text()
+        if prefab_text:
+            with open("prefabs.txt", "a", encoding="utf-8") as file:
+                file.write("\n" + prefab_text)
+        self.prefab.clear()
+        self.stacked_wid.setCurrentIndex(1)
 
 
 if __name__ == "__main__":
