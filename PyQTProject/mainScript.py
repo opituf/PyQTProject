@@ -1,3 +1,4 @@
+import sys
 from PyQt6 import uic, QtWidgets, QtCore, QtGui
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QMainWindow, \
@@ -5,15 +6,31 @@ from PyQt6.QtWidgets import QApplication, QWidget, QStackedWidget, QVBoxLayout, 
     QInputDialog, QFileDialog
 from PyQt6.uic import loadUi
 import sqlite3
+from pathlib import Path
 from PyQt6.QtGui import QClipboard
 
+
+def resource_path(relative_path):
+    """ Получаем путь к ресурсу в зависимости от того, запущен ли скрипт из исходников или из собранного приложения """
+    try:
+        if getattr(sys, 'frozen', False):
+            # Если приложение запущено как исполнимый файл (PyInstaller)
+            base_path = Path(sys._MEIPASS)  # Временная папка, созданная PyInstaller
+        else:
+            # Если приложение запущено из исходных файлов
+            base_path = Path(__file__).parent
+        return base_path / relative_path
+    except Exception as e:
+        print(f"Ошибка в функции resource_path: {e}")
+        return None
 
 class RegisterWindow(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi('ui/registerWindow.ui', self)  # Загружаем UI из файла
-        self.connection = sqlite3.connect("users.db")  # Подключаемся к базе данных пользователей
-        self.cursor = self.connection.cursor()  # Создаем курсор для выполнения запросов
+        uic.loadUi(str(resource_path('ui/registerWindow.ui')), self)  # Загружаем UI из файла
+        user_db_path = resource_path('db/users.db')
+        self.user_connection = sqlite3.connect(user_db_path)
+        self.cursor = self.user_connection.cursor()
 
         # Получаем доступ к элементам интерфейса
         self.password_form = self.findChild(QLineEdit, 'passwordForm')
@@ -31,8 +48,10 @@ class RegisterWindow(QWidget):
             try:
                 # Выполняем запрос на добавление нового пользователя в базу данных
                 self.cursor.execute(
-                    f"""INSERT INTO users (name, password, lessons) VALUES ({self.name_form.text()}, {self.password_form.text()}, 0)""")
-                self.connection.commit()  # Сохраняем изменения в базе данных
+                    f"""INSERT INTO users (name, password, lessons) VALUES (?, ?, 0)""",
+                    (self.name_form.text(), self.password_form.text())
+                )
+                self.user_connection.commit()  # Сохраняем изменения в базе данных
                 QMessageBox.information(self, "Успех", "Пользователь успешно создан")  # Показываем сообщение
                 self.password_form.clear()  # Очищаем поле пароля
             except sqlite3.IntegrityError:
@@ -66,7 +85,7 @@ class RegisterWindow(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self, user_id):
         super().__init__()
-        uic.loadUi('ui/main_window.ui', self)  # Загружаем UI главного окна
+        uic.loadUi(str(resource_path('ui/main_Window.ui')), self)  # Загружаем UI главного окна
         self.user_id = user_id  # Сохраняем ID пользователя
 
         # Получаем доступ к элементам интерфейса
@@ -96,7 +115,8 @@ class MainWindow(QMainWindow):
 
     def getUserData(self):
         # Функция для получения данных пользователя из базы данных
-        connection = sqlite3.connect("users.db")
+        user_db_path = resource_path('db/users.db')
+        connection = sqlite3.connect(user_db_path)
         cursor = connection.cursor()
         user_data = cursor.execute("SELECT * FROM users WHERE id = ?", (self.user_id,)).fetchone()
         connection.close()  # Закрываем соединение с базой данных
@@ -114,7 +134,8 @@ class MainWindow(QMainWindow):
 
     def showLessons(self):
         # Функция для отображения списка уроков
-        connection = sqlite3.connect("lessons.db")
+        user_db_path = resource_path('db/lessons.db')
+        connection = sqlite3.connect(user_db_path)
         cursor = connection.cursor()
         user_data = self.getUserData()  # Получаем данные пользователя
         lessons = user_data[3]  # Получаем строку с уроками
@@ -136,10 +157,13 @@ class MainWindow(QMainWindow):
         label = item.text()  # Получаем текст (название) выбранного урока
 
         # Получаем данные о выбранном уроке
-        connectionLes = sqlite3.connect("lessons.db")
-        connectionUser = sqlite3.connect("users.db")
+        lesson_db_path = resource_path('db/lessons.db')
+        connectionLes = sqlite3.connect(lesson_db_path)
         cursorLes = connectionLes.cursor()
+        user_db_path = resource_path('db/users.db')
+        connectionUser = sqlite3.connect(user_db_path)
         cursorUser = connectionUser.cursor()
+
 
         lesson = cursorLes.execute("SELECT text, id FROM lessons WHERE name = ?", (label,)).fetchall()
         lesson_text = lesson[0][0]  # Текст урока
@@ -175,7 +199,8 @@ class MainWindow(QMainWindow):
 
     def showPrefabs(self):
         # Функция для отображения списка префабов
-        connection = sqlite3.connect("prefabs.db")
+        prefabs_db_path = resource_path('db/prefabs.db')
+        connection = sqlite3.connect(prefabs_db_path)
         cursor = connection.cursor()
 
         # Используем параметризованный запрос
@@ -196,7 +221,8 @@ class MainWindow(QMainWindow):
         self.opened_prefab.show()
 
     def addPrefab(self):
-        connection = sqlite3.connect("prefabs.db")
+        prefabs_db_path = resource_path('db/prefabs.db')
+        connection = sqlite3.connect(prefabs_db_path)
         cursor = connection.cursor()
 
         # Проверяем, что текст в поле для префаба не пустой
@@ -311,7 +337,8 @@ class CopyBook(QWidget):
         clipboard.setText(query)
 
     def edit_query(self):
-        connection = sqlite3.connect("prefabs.db")
+        prefabs_db_path = resource_path('db/prefabs.db')
+        connection = sqlite3.connect(prefabs_db_path)
         cursor = connection.cursor()
         # Здесь будет логика для редактирования запроса
         new_query, ok = QInputDialog.getText(self, "Редактировать запрос", "Введите новый SQL запрос:",
@@ -326,7 +353,8 @@ class CopyBook(QWidget):
 
     def delete_query(self):
         # Запрос для удаления префаба из базы данных
-        connection = sqlite3.connect("prefabs.db")
+        prefabs_db_path = resource_path('db/prefabs.db')
+        connection = sqlite3.connect(prefabs_db_path)
         cursor = connection.cursor()
 
         # Выполняем запрос на удаление префаба
